@@ -1,9 +1,19 @@
 ---
 title: 科学SW
 date: 2017-09-22 16:54:18
-tags:
+tags: shadowsocks
 ---
 
+------------------
+
+##  2018.3.24 更新
+
+
+## 下面的链接教程推荐
+ 
+http://www.vpsintro.com/bwh-ss-script/
+
+------------------
 
 ## 安装
 ```

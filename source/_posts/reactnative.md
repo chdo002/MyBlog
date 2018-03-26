@@ -1,7 +1,7 @@
 ---
 title: reactnative
 date: 2017-10-09 22:52:31
-tags:
+tags: rn 
 ---
 
 ### 参考链接
