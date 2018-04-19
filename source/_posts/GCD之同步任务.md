@@ -1,5 +1,5 @@
 ---
-title: GCD
+title: GCD之同步任务
 date: 2018-03-28 17:31:01
 tags:
 ---
@@ -43,8 +43,96 @@ dispatch_group_notify(group, queue, ^{
 
 ```
 
+### 2018年4月18日更新
+
+对于网络请求这种异步任务，还需要使用 dispatch_group_enter和dispatch_group_leave,来手动处理下，先上代码
+
+```
+dispatch_group_t group = dispatch_group_create();
+dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+
+dispatch_group_enter(group);
+dispatch_async(queue, ^{
+    NSLog(@"任务1开始");
+    sleep(2);
+    NSLog(@"任务1结束");
+    dispatch_group_leave(group);
+});
+
+dispatch_group_enter(group);
+dispatch_async(queue, ^{
+    NSLog(@"任务2开始");
+    sleep(1);
+    NSLog(@"任务2结束");
+    dispatch_group_leave(group);
+});
+
+dispatch_group_notify(group, queue, ^{
+    NSLog(@"完成了");
+});
+```
+
+
+输出为
+```
+17:31:39.314251+0800 testP[29849:2247791] 任务2开始
+17:31:39.314251+0800 testP[29849:2247785] 任务1开始
+17:31:40.317949+0800 testP[29849:2247791] 任务2结束
+17:31:41.318231+0800 testP[29849:2247785] 任务1结束
+17:31:41.318588+0800 testP[29849:2247785] 完成了
+
+```
+
+可以看到任务1和任务2同时执行，因为任务1耗时2秒，所以在任务2后1秒完成，然后发出通知，
+
+dispatch_group_enter和dispatch_group_leave总是成对出现，不然可能导致group没有被释放，从而没有notify；或者group提前释放，导致EXC_BAD_INSTRUCTION,group提前释放
+
+dispatch_group_enter和dispatch_group_leave可以理解为给group添加手动计数，dispatch_group_enter会给group加1，dispatch_group_leave就是减一，group初始计数为0。
+
+当group初始计数为0时，就会执行notify通知，比如如下代码
+
+```
+dispatch_group_t group = dispatch_group_create();
+dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+
+dispatch_group_notify(group, queue, ^{
+    NSLog(@"完成了");
+});
+
+dispatch_group_enter(group);
+dispatch_async(queue, ^{
+    NSLog(@"任务1开始");
+    sleep(2);
+    NSLog(@"任务1结束");
+    dispatch_group_leave(group);
+});
+
+dispatch_group_enter(group);
+dispatch_async(queue, ^{
+    NSLog(@"任务2开始");
+    sleep(1);
+    NSLog(@"任务2结束");
+    dispatch_group_leave(group);
+});
+
+
+```
+
+输出为
+```
+17:45:46.296758+0800 testP[30209:2259157] 任务2开始
+17:45:46.296758+0800 testP[30209:2259158] 任务1开始
+17:45:46.296766+0800 testP[30209:2259150] 完成了
+17:45:47.301499+0800 testP[30209:2259157] 任务2结束
+17:45:48.299812+0800 testP[30209:2259158] 任务1结束
+```
+
+将dispatch_group_notify移到最前，就不会在group完成后得到notify，而是提前执行了
+
+
+
 ## dispatch_barrier_sync 和 dispatch_barrier_async
-![网上找到的](https://img-blog.csdn.net/20150726170216381)
+![网上找到的](https://coding.net/u/chdo/p/CDResource/git/raw/master/20150726170216381.png)
 
 ```
 
@@ -94,7 +182,11 @@ dispatch_group_t group = dispatch_group_create();
 dispatch_semaphore_t semaphore = dispatch_semaphore_create(10);
 dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 for (int i = 0; i < 100; i++){
-// 由于是异步执行的，所以每次循环Block里面的dispatch_semaphore_signal根本还没有执行就会执行dispatch_semaphore_wait，从而semaphore-1.当循环10此后，semaphore等于0，则会阻塞线程，直到执行了Block的dispatch_semaphore_signal 才会继续执行
+/*
+ *  由于是异步执行的，所以每次循环Block里面的dispatch_semaphore_signal根本还没有执行就会执行dispatch_semaphore_wait，
+ *  从而semaphore-1.当循环10此后，semaphore等于0，则会阻塞线程，直到执行了Block的dispatch_semaphore_signal 才会继续执行
+ */
+
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     dispatch_group_async(group, queue, ^{
         NSLog(@"%i",i);
