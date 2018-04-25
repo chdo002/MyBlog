@@ -61,7 +61,6 @@ tags:
 queuePriority是次于dependency的属性，在dependency没有指明的情况下，NSOperationQueue会依据NSOperation的queuePriority来决定执行先后。
 
 
-
 # 异步任务的同步问题
 
 
@@ -104,6 +103,7 @@ queuePriority是次于dependency的属性，在dependency没有指明的情况�
 
 NSOperation是通过KVO isFinished/isExecuting等属性来判断任务的生命周期，重写这几个关键属性就可以了，上代码
 
+
 ```
 @interface SubOperation:NSBlockOperation
 {
@@ -136,8 +136,6 @@ NSOperation是通过KVO isFinished/isExecuting等属性来判断任务的生命�
 
 @end
 ```
-
-
 
 现在重新测试下，需要加上我们手动的方法，可以发现可以实现异步任务同步了
 ```
@@ -172,8 +170,6 @@ NSOperation是通过KVO isFinished/isExecuting等属性来判断任务的生命�
 2018-04-23 09:30:46.089130+0800 testP[20651:442214] end-1
 
 ```
-
-
 
 # 参考链接
 
