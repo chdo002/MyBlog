@@ -60,4 +60,72 @@ static NSThread *workThread;
 ```
 
 
-# 常驻线程
+# runloop  observer
+
+可以通过CFRunLoopAddObserver，给runloop添加观察者，具体实践如下
+
+
+这是CDChatList中的一段代码，主要是为了实现，label在scrollview滚动时，去除选中文字的样式，如果不用runloop也是可以用通知或者其他的代理形式实现，但是会有一定的耦合
+
+```
+    currentMode = CFRunLoopCopyCurrentMode(CFRunLoopGetMain());
+
+     __weak typeof(self) weakS = self;
+    // 这里监听了所有的runloop事件，然后在回调中过滤出滚动事件，因为滚动事件会一直回调，所以这里需要特别处理，只观察进入滚动的时机
+    CFRunLoopObserverRef observer = CFRunLoopObserverCreateWithHandler(kCFAllocatorDefault, kCFRunLoopAllActivities, YES, 0, ^(CFRunLoopObserverRef observer, CFRunLoopActivity activity) {
+        if (weakS) {
+            __strong typeof(weakS) strongS = weakS;
+            CFComparisonResult rest = CFStringCompare(strongS->currentMode, CFRunLoopCopyCurrentMode(CFRunLoopGetMain()), kCFCompareBackwards);
+            if (rest != kCFCompareEqualTo) {
+                strongS->currentMode = CFRunLoopCopyCurrentMode(CFRunLoopGetMain());
+                if ((NSString *)CFBridgingRelease(strongS->currentMode) == UITrackingRunLoopMode) {
+                    [strongS scrollDidScroll];
+                }
+            }
+        }
+    });
+    
+    CFRunLoopAddObserver(CFRunLoopGetMain(), observer, kCFRunLoopCommonModes);
+```
+
+
+
+
+下面是YYTransaction中相关的代码，具有类似的实现，这里监听的目的应该是在runloop将要进入休眠时，把不需要立即执行的任务执行，以达到async的效果。
+
+在AsyncDisplayKit中也有类似的用法
+
+```
+static NSMutableSet *transactionSet = nil;
+
+static void YYRunLoopObserverCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity activity, void *info) {
+    if (transactionSet.count == 0) return;
+    NSSet *currentSet = transactionSet;
+    transactionSet = [NSMutableSet new];
+    [currentSet enumerateObjectsUsingBlock:^(YYTransaction *transaction, BOOL *stop) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [transaction.target performSelector:transaction.selector];
+#pragma clang diagnostic pop
+    }];
+}
+
+static void YYTransactionSetup() {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        transactionSet = [NSMutableSet new];
+        CFRunLoopRef runloop = CFRunLoopGetMain();
+        CFRunLoopObserverRef observer;
+        
+        observer = CFRunLoopObserverCreate(CFAllocatorGetDefault(),
+                                           kCFRunLoopBeforeWaiting | kCFRunLoopExit,
+                                           true,      // repeat
+                                           0xFFFFFF,  // after CATransaction(2000000)
+                                           YYRunLoopObserverCallBack, NULL);
+        CFRunLoopAddObserver(runloop, observer, kCFRunLoopCommonModes);
+        CFRelease(observer);
+    });
+}
+```
+
+
