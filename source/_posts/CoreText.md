@@ -72,4 +72,4 @@ self.layer.contents = (__bridge id)data.contents.CGImage;
 
 ```
 
-最终效果在GitHub上搜CDChatList
+最终效果在GitHub见[CDChatList](https://github.com/chdo002/cdchatlist)
