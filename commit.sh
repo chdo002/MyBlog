@@ -20,4 +20,4 @@ hexo c;
 hexo g;
 hexo d;
 
-echo 'commit为：$param';
+echo "commit为：$param";
