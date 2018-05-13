@@ -4,7 +4,7 @@ date: 2018-05-13 14:17:17
 tags:
 ---
 
-> 最近一段时间用的Cocoapods做项目组件化，意外的打开了以前不太注意的脚本大门，现在记录如下：
+> 最近一段时间用的Cocoapods做项目组件化，意外的打开了以前不太注意的脚本大门，可以让工作更加方便自动化，现在记录如下：
 
  xcode 中的build phrase 用来控制项目的编译过程，你按下CMD+B或者CMD+R，他就按照从上到下的执行一遍，我想要在编译前或者编译后执行一些操作，就可以在合适的位置添加脚本，shell或者Python等都可以。
 
@@ -41,4 +41,10 @@ tags:
 这个文件可以是脚本文件，也可以是执行文件，然后执行 `source ~/.bash_profile`，就可以立即让这个路径生效，不然要重启，让系统读下这个文件。
 
 echo $PATH 显示当前PATH环境变量
+
+在Xcode中可以创建command line 工程，创建命令行工具，用C，Objective-c，C++都可以
+
+在C语言中调用shell脚本,可用int system(const char *command)这个函数，也有其他的[函数](https://www.cnblogs.com/yxysuanfa/p/7142013.html)
+
+
 
