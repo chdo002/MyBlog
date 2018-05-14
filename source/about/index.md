@@ -93,11 +93,9 @@ EZY3D.net后台管理者能够随时，随地对自己的商品进行分类、�
 # 开源项目和作品
 
 ## 开源项目
- - [CDChatList](https://github.com/chdo002/CDChatList):聊天界面的组件
- - [CDInfiniteScroll](https://github.com/chdo002/CDInfiniteScroll)：无限循环并自动适应的scrollview
- - [文件系统](https://github.com/chdo002/chdo_fold):一个简单的文件夹系统(Realm实现，Swift3.1)
- - [Turntable](https://github.com/chdo002/turntable)：主要是实现了自动snapin的效果，这里就将其中的主要部分提取出来，记录下一下。
 
+ - [CDChatList](https://github.com/chdo002/CDChatList):聊天界面的组件
+ 
 ## 技术文章
 
 - [MVVM + ReactiveCoocoa 5(翻译文章)](http://www.jianshu.com/p/e7eddc595a7e)
