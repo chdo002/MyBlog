@@ -49,5 +49,5 @@ compile 'com.taobao.android:weex_sdk:0.5.1@aar'
 
 ## 待解决问题
 
-- [ ] iOS11中在复杂页面情况下出现自动布局在后台进行的错误
+- [x ] iOS11中在复杂页面情况下出现自动布局在后台进行的错误.(iOS 11.1之后已经修复了)
 - [ ] js调用Android 原生Java方法回调怎么写，还没有试
