@@ -35,14 +35,14 @@ VALUES (value1, value2, value3,...valueN);
 
 INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
 ```
-__
+___
 ## Update 语句
 ```
 UPDATE table_name
 SET column1 = value1, column2 = value2...., columnN = valueN
 WHERE [condition];
 ```
-__
+___
 ## Delete 语句
 ```
 DELETE FROM table_name
