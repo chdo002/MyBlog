@@ -86,13 +86,13 @@ FROM table_name
 WHERE [condition1] AND [condition2]...AND [conditionN];
 ```
 OR
-__
+___
 ```
 SELECT column1, column2, columnN 
 FROM table_name
 WHERE [condition1] OR [condition2]...OR [conditionN]
 ```
-__
+___
 ## Like 子句
 
 SQLite 的 LIKE 运算符是用来匹配通配符指定模式的文本值。如果搜索表达式与模式表达式匹配，LIKE 运算符将返回真（true），也就是 1。这里有两个通配符与 LIKE 运算符一起使用：
@@ -106,13 +106,14 @@ SELECT column_list
 FROM table_name
 WHERE column LIKE 'XXXX%'
 ```
-__
+___
 ## Glob 子句
 
 Glob类似like，区别是like 不区分大小写，GLob区分大小写
 
 星号 （ * ）对应 百分号 （%）问号 （?）对应 下划线 （ _ ）
-__
+
+___
 ## Limit 子句
 
 ```
@@ -120,13 +121,13 @@ SELECT column1, column2, columnN
 FROM table_name
 LIMIT [no of rows]
 ```
-__
+___
 ```
 SELECT column1, column2, columnN 
 FROM table_name
 LIMIT [no of rows] OFFSET [row num]
 ```
-__
+___
 ## Order By 子句
 
 ```
@@ -135,7 +136,7 @@ FROM table_name
 [WHERE condition] 
 [ORDER BY column1, column2, .. columnN] [ASC | DESC];
 ```
-__
+___
 ## Group By 子句
 
 SQLite 的 GROUP BY 子句用于与 SELECT 语句一起使用，来对相同的数据进行分组。
@@ -149,7 +150,7 @@ WHERE [ conditions ]
 GROUP BY column1, column2....columnN
 ORDER BY column1, column2....columnN
 ```
-__
+___
 ## Having 子句
 
 HAVING 子句允许指定条件来过滤将出现在最终结果中的分组结果。
@@ -168,7 +169,8 @@ ORDER BY column1, column2
 ```
 
 # 关键字
-__
+
+___
 ## Distinct 关键字
 
 DISTINCT 关键字与 SELECT 语句一起使用，来消除所有重复的记录，并只获取唯一一次记录。
