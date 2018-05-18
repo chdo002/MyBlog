@@ -193,5 +193,79 @@ SELECT DISTINCT column1, column2,.....columnN
 FROM table_name
 WHERE [condition]
 ```
+# 进阶
 
+___
+## PRAGMA
+
+SQLite 的 PRAGMA 命令是一个特殊的命令，可以用在 SQLite 环境内控制各种环境变量和状态标志。一个 PRAGMA 值可以被读取，也可以根据需求进行设置。
+
+pragma 修改的是预置的变量，不可以自定义变量
+
+[具体有哪些环境变量查看这里](http://www.sqlite.org/pragma.html#pragma_application_id)
+
+```
+要查询当前的 PRAGMA 值，只需要提供该 pragma 的名字：
+
+PRAGMA pragma_name;
+
+要为 PRAGMA 设置一个新的值，语法如下：
+
+PRAGMA pragma_name = value;
+```
+___
+## 约束
+
+常用约束
+
+```
+NOT NULL 约束：确保某列不能有 NULL 值。
+
+DEFAULT 约束：当某列没有指定值时，为该列提供默认值。
+
+UNIQUE 约束：确保某列中的所有值是不同的。
+
+PRIMARY Key 约束：唯一标识数据库表中的各行/记录。
+
+CHECK 约束：CHECK 约束确保某列中的所有值满足一定条件。
+```
+针对check，写个栗子
+```
+CREATE TABLE COMPANY3(
+   ID INT PRIMARY KEY     NOT NULL,
+   NAME           TEXT    NOT NULL,
+   AGE            INT     NOT NULL,
+   ADDRESS        CHAR(50),
+   SALARY         REAL    CHECK(SALARY > 0)
+);
+```
+___
+## Joins
+
+sqlite 支持的joins 有三种链接
+
+### 交叉连接 - CROSS JOIN
+```
+如果不带WHERE条件子句，它将会返回被连接的两个表的笛卡尔积，返回结果的行数等于两个表行数的乘积
+```
+
+### 内连接 - INNER JOIN
+
+INNER JOIN 产生的结果是AB的交集
+
+```
+SELECT * FROM TableA INNER JOIN TableB ON TableA.name = TableB.name
+```
+
+### 外连接 - OUTER JOIN
+
+LEFT [OUTER] JOIN   产生表A的完全集，而B表中匹配的则有值，没有匹配的则以null值取代。
+```
+SELECT * FROM TableA LEFT OUTER JOIN TableB ON TableA.name = TableB.name
+```
+RIGHT [OUTER] JOIN  不支持
+FULL [OUTER] JOINs 不支持  
+
+___
+## Unions 子句
 
