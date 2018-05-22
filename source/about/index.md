@@ -98,25 +98,19 @@ EZY3D.net后台管理者能够随时，随地对自己的商品进行分类、�
  
 ## 技术文章
 
-- [MVVM + ReactiveCoocoa 5(翻译文章)](http://www.jianshu.com/p/e7eddc595a7e)
-- [如何编写iOS的自动测试(翻译文章)](http://www.jianshu.com/p/0342e780706e)
-- 其他文章请查看简书[chdo002](http://www.jianshu.com/u/1db409442048)
+- [个人博客](https://chdo002.github.io)
+- [简书](http://www.jianshu.com/u/1db409442048)
 
 ---
 # 技能清单
 
-- 语言：Swift / Objectvie-C
+- 语言：掌握Swift / Objectvie-C， 熟悉JavaScript，shell
 - 工具：Xcode / Instruments / Charles / Sketch
 - 版本管理：Git
-- 数据库：FMDB / Realm
-- 熟悉Objective-C，Swift，及其混编
-- 熟悉MVC、MVVM、代理、装饰、单利等模式
-- 熟练使用Alamofire/AFNetWoring, SnapKit/ Masonry， Kingfisher/SDWebImage等
-- 熟练使用AsyncDisplayKit
-- 掌握第三方主流SDK：友盟分享、百度/高德地图等
 - 熟练使用GCD，NSOperation，NSThread等多线程技术
 - 熟悉runtime，KVO，KVC等运行机制和消息机制，及内存管理机制
-- 熟悉cocoa框架，熟悉UIKit，AVFoundation，CoreAnimation, QuartzCore
+- 熟悉cocoa框架，熟悉UIKit，AVFoundation，CoreAnimation
+- 熟悉常用第三方库
 - 良好的代码编写习惯和codereview习惯
 - 良好的文档阅读能力
 
