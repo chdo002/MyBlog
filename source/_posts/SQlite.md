@@ -491,8 +491,9 @@ WHERE  column_name OPERATOR
 #### 实例
 
 假设 COMPANY 表有以下记录：
+
 ID         |NAME       |AGE        |ADDRESS    |SALARY
-| - | - | - | - | - | 
+ - | - | - | - | - |
 1           |Paul       |32        |California |20000.0
 2           |Allen      |25        |Texas      |15000.0
 3           |Teddy      |23        |Norway     |20000.0
@@ -560,8 +561,9 @@ sqlite> UPDATE COMPANY
                    WHERE AGE >= 27 );
 ```
 这将影响两行，最后 COMPANY 表中的记录如下：
-ID         |NAME       |AGE        |ADDRESS    |SALARY
-| - | - | - | - | - |
+
+ID         |NAME       |AGE        |ADDRESS     |SALARY
+ - | - | - | - | - 
 1          |Paul       |32         |California  |10000.0
 2          |Allen      |25         |Texas       |15000.0
 3          |Teddy      |23         |Norway      |20000.0
@@ -590,8 +592,9 @@ sqlite> DELETE FROM COMPANY
                    WHERE AGE > 27 );
 ```
 这将影响两行，最后 COMPANY 表中的记录如下：
+
 ID         |NAME       |AGE        |ADDRESS     |SALARY
-| - | - | - | - | - |
+ - | - | - | - | - 
 2          |Allen      |25         |Texas      |15000.0
 3          |Teddy      |23         |Norway     |20000.0
 4          |Mark       |25         |Rich-Mond  |65000.0
@@ -605,7 +608,7 @@ ___
 SQLite 支持以下五个日期和时间函数：
 
 序号	|函数	|实例
-| - | - | - |
+ - | - | - 
 1	|date(timestring, modifier, modifier, ...)	|以 YYYY-MM-DD 格式返回日期。
 2	|time(timestring, modifier, modifier, ...)	|以 HH:MM:SS 格式返回时间。
 3	|datetime(timestring, modifier, modifier, ...)	|以 YYYY-MM-DD HH:MM:SS 格式返回。
@@ -616,8 +619,9 @@ SQLite 支持以下五个日期和时间函数：
 ### 时间字符串
 
 一个时间字符串可以采用下面任何一种格式：
+
 序号	|时间字符串	|实例
-| - | - | - |
+ - | - | - 
 1	|YYYY-MM-DD	|2010-12-30
 2	|YYYY-MM-DD HH:MM	|2010-12-30 12:10
 3	|YYYY-MM-DD HH:MM:SS.SSS	|2010-12-30 12:10:04.100
@@ -651,7 +655,7 @@ SQLite 支持以下五个日期和时间函数：
 SQLite 提供了非常方便的函数 strftime() 来格式化任何日期和时间。您可以使用以下的替换来格式化日期和时间：
 
 替换	|描述
-| - | - |
+ - | - 
 %d	|一月中的第几天，01-31
 %f	|带小数部分的秒，SS.SSS
 %H	|小时，00-23
@@ -727,7 +731,7 @@ sqlite>  SELECT time('12:00', 'utc');
 QLite 有许多内置函数用于处理字符串或数字数据。下面列出了一些有用的 SQLite 内置函数，且所有函数都是大小写不敏感，这意味着您可以使用这些函数的小写形式或大写形式或混合形式。欲了解更多详情，请查看 SQLite 的官方文档：
 
 序号	|函数 & 描述
-| - | - |
+ - | - 
 1	|SQLite COUNT 函数<br>SQLite COUNT 聚集函数是用来计算一个数据库表中的行数。
 2	|SQLite MAX 函数<br>SQLite MAX 聚合函数允许我们选择某列的最大值。
 3	|SQLite MIN 函数<br>SQLite MIN 聚合函数允许我们选择某列的最小值。
@@ -743,7 +747,7 @@ QLite 有许多内置函数用于处理字符串或数字数据。下面列出�
 在我们开始讲解这些函数实例之前，先假设 COMPANY 表有以下记录：
 
 ID         |NAME       |AGE        |ADDRESS    |SALARY
-| - | - | - | - | - |
+ - | - | - | - | -
 1          |Paul       |32         |California |20000.0
 2          |Allen      |25         |Texas      |15000.0
 3          |Teddy      |23         |Norway     |20000.0
@@ -760,9 +764,9 @@ sqlite> SELECT count(*) FROM COMPANY;
 ```
 上面的 SQLite SQL 语句将产生以下结果：
 
-|count(*)
-| - |
-|7
+count(*)|
+- |
+7|
 
 ### SQLite MAX 函数
 SQLite MAX 聚合函数允许我们选择某列的最大值。下面是实例：
@@ -771,9 +775,9 @@ sqlite> SELECT max(salary) FROM COMPANY;
 ```
 上面的 SQLite SQL 语句将产生以下结果：
 
-|max(salary)
-|-|
-|85000.0
+max(salary)|
+-|
+85000.0|
 
 ### SQLite MIN 函数
 SQLite MIN 聚合函数允许我们选择某列的最小值。下面是实例：
@@ -781,9 +785,10 @@ SQLite MIN 聚合函数允许我们选择某列的最小值。下面是实例：
 sqlite> SELECT min(salary) FROM COMPANY;
 ```
 上面的 SQLite SQL 语句将产生以下结果：
-|min(salary)
-|-|
-|10000.0
+
+min(salary)|
+-|
+10000.0|
 
 ### SQLite AVG 函数
 SQLite AVG 聚合函数计算某列的平均值。下面是实例：
@@ -791,9 +796,10 @@ SQLite AVG 聚合函数计算某列的平均值。下面是实例：
 sqlite> SELECT avg(salary) FROM COMPANY;
 ```
 上面的 SQLite SQL 语句将产生以下结果：
-|avg(salary)
-|-|
-|37142.8571428572
+
+avg(salary)|
+-|
+37142.8571428572|
 
 ### SQLite SUM 函数
 SQLite SUM 聚合函数允许为一个数值列计算总和。下面是实例：
@@ -801,18 +807,20 @@ SQLite SUM 聚合函数允许为一个数值列计算总和。下面是实例：
 sqlite> SELECT sum(salary) FROM COMPANY;
 ```
 上面的 SQLite SQL 语句将产生以下结果：
-|sum(salary)
-|-|
-|260000.0
+
+sum(salary)|
+-|
+260000.0|
 ### SQLite RANDOM 函数
 SQLite RANDOM 函数返回一个介于 -9223372036854775808 和 +9223372036854775807 之间的伪随机整数。下面是实例：
 ```
 sqlite> SELECT random() AS Random;
 ```
 上面的 SQLite SQL 语句将产生以下结果：
-|Random
-|-|
-|5876796417670984050
+
+Random|
+-|
+5876796417670984050|
 
 ### SQLite ABS 函数
 SQLite ABS 函数返回数值参数的绝对值。下面是实例：
@@ -822,8 +830,8 @@ sqlite> SELECT abs(5), abs(-15), abs(NULL), abs(0), abs("ABC");
 上面的 SQLite SQL 语句将产生以下结果：
 
 abs(5)      |abs(-15)   |abs(NULL)  |abs(0)     |abs("ABC")
-|-|-|-|-|-|
-5           |15          |\<null>         |0           |0.0
+-|-|-|-|-
+5           |15         |< null >       |0           |0.0
 
 ### SQLite UPPER 函数
 SQLite UPPER 函数把字符串转换为大写字母。下面是实例：
@@ -831,38 +839,42 @@ SQLite UPPER 函数把字符串转换为大写字母。下面是实例：
 sqlite> SELECT upper(name) FROM COMPANY;
 ```
 上面的 SQLite SQL 语句将产生以下结果：
-|upper(name)
-|-|
-|PAUL
-|ALLEN
-|TEDDY
-|MARK
-|DAVID
-|KIM
-|JAMES
+
+upper(name)|
+-|
+PAUL|
+ALLEN|
+TEDDY|
+MARK|
+DAVID|
+KIM|
+JAMES|
 ### SQLite LOWER 函数
 SQLite LOWER 函数把字符串转换为小写字母。下面是实例：
 ```
 sqlite> SELECT lower(name) FROM COMPANY;
 ```
 上面的 SQLite SQL 语句将产生以下结果：
-|lower(name)
-|-|
-|paul
-|allen
-|teddy
-|mark
-|david
-|kim
-|james
+
+lower(name) |
+-|
+paul |
+allen |
+teddy|
+mark|
+david|
+kim|
+james|
+
 ### SQLite LENGTH 函数
 SQLite LENGTH 函数返回字符串的长度。下面是实例：
 ```
 sqlite> SELECT name, length(name) FROM COMPANY;
 ```
 上面的 SQLite SQL 语句将产生以下结果：
+
 NAME        |length(name)
-|-|-|
+-|-
 Paul        |4
 Allen       |5
 Teddy       |5
@@ -877,6 +889,7 @@ SQLite sqlite_version 函数返回 SQLite 库的版本。下面是实例：
 sqlite> SELECT sqlite_version() AS 'SQLite Version';
 ```
 上面的 SQLite SQL 语句将产生以下结果：
-|SQLite Version
-|-|
-|3.6.20
+
+SQLite Version |
+-|
+3.6.20 |
