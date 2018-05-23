@@ -7,7 +7,7 @@ tags:
 > 基于 [菜鸟](http://www.runoob.com/sqlite/) 整理
 
 
-请查看 SQLite [官方文档1](http://www.sqlite.org/c3ref/intro.html), [官方文档2](http://www.sqlite.org/cintro.html)。
+要了解更多细节，请查看 SQLite [官方文档1](http://www.sqlite.org/c3ref/intro.html), [官方文档2](http://www.sqlite.org/cintro.html)。
 
 <style>table th:first-of-type { width: 20px;}</style>
 
