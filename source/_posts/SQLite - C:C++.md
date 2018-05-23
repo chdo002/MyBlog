@@ -4,7 +4,7 @@ date: 2018-05-23 15:25:37
 tags:
 ---
 
-> 基于 [菜鸟](http://www.runoob.com/sqlite/) 整理
+> 基于 [菜鸟](http://www.runoob.com/sqlite/sqlite-c-cpp.html) 整理
 
 
 要了解更多细节，请查看 SQLite [官方文档1](http://www.sqlite.org/c3ref/intro.html), [官方文档2](http://www.sqlite.org/cintro.html)。
