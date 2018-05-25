@@ -16,11 +16,7 @@ title: 陈栋
 
  - 陈栋/男/1991
  - 本科/徐州工程学院/2013年毕业
- - 工作年限：3年
- - 简书：[chdo002](http://www.jianshu.com/u/1db409442048)
  - Github：https://github.com/chdo002
- - 期望城市：上海
- - 当前状态： 在职
 
 ---
 
