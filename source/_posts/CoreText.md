@@ -24,22 +24,22 @@ coretext可以实现文本尺寸的计算，文本在子线程绘制，绘制完
 
 上代码
 
-```
-/*
- *   首先创建需要显示的富文本，这里可能包含表情，
- *   形如: @"呵呵哒，然后来个表情[微笑][骷髅]", 
- *   这里的[微笑][骷髅]就是需要被替换成表情图片，先用正则换成空字符占位，等后续图片绘制，绘制部分具体代码可见CDChatList的CDLabel实现
- */ 
-NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:data.msgString attributes:dic];
 
+首先创建需要显示的富文本，这里可能包含表情，
+形如: @"呵呵哒，然后来个表情[微笑][骷髅]", 
+这里的[微笑][骷髅]就是需要被替换成表情图片，先用正则换成空字符占位，等后续图片绘制，绘制部分具体代码可见CDChatList的CDLabel实现
+
+```
+NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:data.msgString attributes:dic];
 
 // 先创建framesetter
 CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((CFAttributedStringRef)attString);
+```
 
-/*
-*  这步计算文本内容范围，猜测boundingRectWithSize也是用的这个方法，入参很像
-*  这里的size就是需要缓存的
-*/ 
+这步计算文本内容范围，猜测boundingRectWithSize也是用的这个方法，入参很像
+这里的size就是需要缓存的
+
+```
 CGSize caSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0,attString.length), nil, size, nil);
 
 // 这两步获得需要绘制文本的CGPath和CTFrame
@@ -49,27 +49,40 @@ CTFrameRef frame = CTFramesetterCreateFrame(framesetter,CFRangeMake(0, [attStrin
 // 注意需要释放内存
 CFRelease(framesetter);
 CFRelease(path);
+```
 
 
-// 渲染展示内容
+渲染展示内容
+```
 UIGraphicsBeginImageContextWithOptions(caSize, NO, 0);
 CGContextRef context = UIGraphicsGetCurrentContext();
 CGContextSetTextMatrix(context, CGAffineTransformIdentity);
 CGContextTranslateCTM(context, 0, caSize.height);
 CGContextScaleCTM(context, 1.0, -1.0); // coretext坐标系翻转
 CTFrameDraw(frame, context);
-
 //.....将上面正则出来的表情图片也绘制在这个context上
+```
 
+最终我们得到这个需要展示的图片内容
 
-// 最终我们得到这个需要展示的图片内容
+```
 UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
 UIGraphicsEndImageContext();
+```
 
-
-// 在展示上面的图片时，将他赋给layer的contents
+在展示上面的图片时，将他赋给layer的contents
+这一步必须在主线程执行，可以使用NSCache对此缓存，以达到流畅的效果，且不用担心内存问题
+```
 self.layer.contents = (__bridge id)data.contents.CGImage;
-
 ```
 
 最终效果在GitHub见[CDChatList](https://github.com/chdo002/cdchatlist)
+
+
+参考文章
+
+[iOS中的富文本技术（2）-CoreText框架](https://blog.csdn.net/liujinlongxa/article/details/44864463)
+
+[猿题库iOS客户端的技术细节(三):基于CoreText的排版引擎](http://www.360doc.com/content/14/0214/15/11991_352473651.shtml)
+
+[基于 CoreText 的排版引擎：基础](https://blog.csdn.net/chaoyuan899/article/details/46662679)
