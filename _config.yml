@@ -72,15 +72,9 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: autume
-# theme: Cafe
-# theme: next
-# theme: casper
-# theme:  hexo-theme-Anisina
-# theme: cover
-# theme: oishi
-# theme: TKL
-# theme: hexo-theme-yilia
+
+theme: next
+
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
